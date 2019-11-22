@@ -704,6 +704,22 @@ chain::action create_unlinkauth(const name& account, const name& code, const nam
                    unlinkauth{account, code, type}};
 }
 
+chain::action create_setstatic( const name& account, const bool is_static, const std::vector<action_name> &acts, const bool use_root = false ) {
+   const auto permission_account =
+         use_root
+         ? account_name{config::system_account_name}
+         : account_name{account};
+
+   return action {
+         vector<chain::permission_level>{{permission_account, config::active_name}},
+         setstatic{
+               .account   = account,
+               .is_static = is_static,
+               .actions  = acts
+         }
+   };
+}
+
 authority parse_json_authority(const std::string& authorityJsonOrFile) {
    fc::variant authority_var = json_from_file_or_string(authorityJsonOrFile);
    try {
@@ -3010,6 +3026,20 @@ int main( int argc, char** argv ) {
       dlog("In non-RESOURCE_MODEL_FEE model, do not support setfee");
    });
 #endif
+
+   string account_to_set_static;
+   bool is_static = true;
+   bool use_root_account = false;
+
+   auto setstaticSubcommand = setSubcommand->add_subcommand("static", localized("Set Account to static account"));
+   setstaticSubcommand->add_option("account", account_to_set_static, localized("The account to set"))->required();
+   setstaticSubcommand->add_option("static", is_static, localized("The action to set the Fee for"), true);
+   setstaticSubcommand->add_option("root", use_root_account, localized("If use root account auth to set"), false);
+
+   // TODO tmp not support add static per action
+   setstaticSubcommand->set_callback([&] {
+      send_actions({create_setstatic(name(account_to_set_static), is_static, {}, use_root_account)});
+   });
 
    auto contractSubcommand = setSubcommand->add_subcommand("contract", localized("Create or update the contract on an account"));
    contractSubcommand->add_option("account", account, localized("The account to publish a contract for"))

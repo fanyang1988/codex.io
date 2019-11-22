@@ -41,6 +41,8 @@ namespace eosio { namespace chain {
       init_native_fee(config::msig_account_name, N(unapprove), asset(10000));
       init_native_fee(config::msig_account_name, N(cancel),    asset(10000));
       init_native_fee(config::msig_account_name, N(exec),      asset(10000));
+
+      init_native_fee(config::system_account_name, N(setstatic),  asset(1000));
    }
 
    /*

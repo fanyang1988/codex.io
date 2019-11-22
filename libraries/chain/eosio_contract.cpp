@@ -487,6 +487,9 @@ void apply_system_native_setstatic(apply_context& context) {
       return;
    }
 
+   ilog( "setstatic ${n}, ${i}, ${a}",
+         ("n", act.account)("i", act.is_static)("a", act.actions) );
+
    auto itr = db.find<chain::static_account_object, chain::by_contract_account>(act.account);
    if( act.is_static ){
       if(itr == nullptr) {

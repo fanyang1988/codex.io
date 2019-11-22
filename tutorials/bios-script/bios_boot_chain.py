@@ -240,7 +240,7 @@ def stepSetFuncs():
 
     # some config to set
     print('stepSetFuncs')
-    sleep(8)
+    sleep(18)
     key = args.pr + publickey
     mkContractAccount( root_account, key, args.contracts_dir + '/force.system/', False )
     mkContractAccount( systemAccount('token'), key, args.contracts_dir + '/force.token/' )

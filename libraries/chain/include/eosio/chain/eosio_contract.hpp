@@ -29,6 +29,7 @@ namespace eosio { namespace chain {
    void apply_system_native_setabi(apply_context&);
    void apply_system_native_setfee(apply_context&);
    void apply_system_native_canceldelay(apply_context&);
+   void apply_system_native_setstatic(apply_context&);
    ///@}  end action handlers
 
 } } /// namespace eosio::chain

@@ -53,6 +53,7 @@ namespace action {
    const static action_name setconfig_name = N(setconfig);
    const static action_name setfee_name    = N(setfee);
    const static action_name fee_name       = N(fee);
+   const static action_name setstatic_name = N(setstatic);
 };
 
 const static int      block_interval_ms = ${BLOCK_INTERVAL_MS};

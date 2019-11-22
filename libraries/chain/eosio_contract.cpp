@@ -24,6 +24,7 @@
 #include <eosio/chain/config_on_chain.hpp>
 #include <eosio/chain/config.hpp>
 #include <eosio/chain/txfee_manager.hpp>
+#include <eosio/chain/static_account.hpp>
 
 namespace eosio { namespace chain {
 
@@ -472,6 +473,37 @@ void apply_system_native_setconfig(apply_context& context) {
    set_config_on_chain(context.db, cfg_data);
    set_list_config_on_chain(context.control,cfg_data);
    set_guaranteed_minimum_config(context.control,cfg_data);
+}
+
+// setfee just for test imp contracts
+void apply_system_native_setstatic(apply_context& context) {
+   auto &db = context.db;
+   auto act = context.get_action().data_as<setstatic>();
+
+   if( !( context.has_authorization(config::chain_config_name)
+       || context.has_authorization(config::system_account_name)
+       || context.has_authorization(act.account))) {
+      EOS_THROW(missing_auth_exception, "setstatic need auth by account or system account");
+      return;
+   }
+
+   auto itr = db.find<chain::static_account_object, chain::by_contract_account>(act.account);
+   if( act.is_static ){
+      if(itr == nullptr) {
+         db.create<chain::static_account_object>([&]( auto& obj ) {
+            obj.name = act.account;
+            obj.actnames = act.actions;
+         });
+      } else {
+         db.modify<chain::static_account_object>( *itr, [&]( auto& obj ) {
+            obj.actnames = act.actions;
+         });
+      }
+   } else {
+      if(itr != nullptr){
+         db.remove<chain::static_account_object>(*itr);
+      }
+   }
 }
 
 } } // namespace eosio::chain

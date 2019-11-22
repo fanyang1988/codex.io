@@ -354,6 +354,7 @@ struct controller_impl {
       SET_NATIVE_SYSTEM_APP_HANDLER( canceldelay );
       SET_NATIVE_SYSTEM_APP_HANDLER( setconfig );
       SET_NATIVE_SYSTEM_APP_HANDLER( setfee );
+      SET_NATIVE_SYSTEM_APP_HANDLER( setstatic );
    }
 
    /**

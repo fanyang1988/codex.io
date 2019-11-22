@@ -233,6 +233,14 @@ abi_def eosio_contract_abi(const abi_def& eosio_system_abi)
       }
    });
 
+   eos_abi.structs.emplace_back( struct_def {
+         "setstatic", "", {
+               {"account",   "account_name"},
+               {"is_static", "bool"},
+               {"actions",   "action_name[]"}
+         }
+   });
+
    // TODO add ricardian contracts
    eos_abi.actions.push_back( action_def{name("newaccount"), "newaccount",""} );
    eos_abi.actions.push_back( action_def{name("setcode"), "setcode",""} );
@@ -245,6 +253,7 @@ abi_def eosio_contract_abi(const abi_def& eosio_system_abi)
    eos_abi.actions.push_back( action_def{name("canceldelay"), "canceldelay",""} );
    eos_abi.actions.push_back( action_def{name("onerror"), "onerror",""} );
    eos_abi.actions.push_back( action_def{name("onblock"), "onblock",""} );
+   eos_abi.actions.push_back( action_def{name("setstatic"), "setstatic",""} );
 
    return eos_abi;
 }

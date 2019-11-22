@@ -201,6 +201,20 @@ struct onerror {
    }
 };
 
+struct setstatic{
+   account_name               account;
+   bool                       is_static;
+   std::vector<action_name>   actions;
+
+   static account_name get_account() {
+      return config::system_account_name;
+   }
+
+   static action_name get_name() {
+      return config::action::setstatic_name;
+   }
+};
+
 } } /// namespace eosio::chain
 
 FC_REFLECT( eosio::chain::newaccount                       , (creator)(name)(owner)(active) )
@@ -215,3 +229,4 @@ FC_REFLECT( eosio::chain::unlinkauth                       , (account)(code)(typ
 FC_REFLECT( eosio::chain::canceldelay                      , (canceling_auth)(trx_id) )
 FC_REFLECT( eosio::chain::transfer_fee                     , (payer)(quantity) )
 FC_REFLECT( eosio::chain::onerror                          , (sender_id)(sent_trx) )
+FC_REFLECT( eosio::chain::setstatic                        , (account)(is_static)(actions) )

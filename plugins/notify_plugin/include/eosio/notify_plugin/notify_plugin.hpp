@@ -1,7 +1,3 @@
-/**
- *  @file
- *  @copyright eospace in eos/LICENSE.txt
- */
 #pragma once
 #include <appbase/application.hpp>
 #include <eosio/chain_plugin/chain_plugin.hpp>

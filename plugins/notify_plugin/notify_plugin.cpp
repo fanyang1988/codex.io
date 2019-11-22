@@ -1,7 +1,3 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
 #include <eosio/notify_plugin/notify_plugin.hpp>
 #include <eosio/notify_plugin/http_async_client.hpp>
 #include <eosio/chain/controller.hpp>

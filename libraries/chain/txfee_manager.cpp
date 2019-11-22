@@ -1,8 +1,3 @@
-/**
- *  @file
- *  @copyright defined in eos/LICENSE.txt
- */
-
 #include <eosio/chain/exceptions.hpp>
 #include <eosio/chain/txfee_manager.hpp>
 #include <eosio/chain/controller.hpp>

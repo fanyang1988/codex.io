@@ -262,8 +262,9 @@ namespace eosio { namespace chain {
 
       UNUSED_obj_codexio_start,
 
-      action_fee_object_type, // Warning !!! the number will diff with eos
-      config_data_object_type, // Warning !!! the number will diff with eos
+      action_fee_object_type,
+      config_data_object_type,
+      static_account_object_type,
       force_property_object_type,
       gmr_config_object_type,
 

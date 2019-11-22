@@ -42,6 +42,7 @@
 #include <eosio/chain/resource_limits_private.hpp>
 #include <eosio/chain/config.hpp>
 #include <eosio/chain/eosio_contract.hpp>
+#include <eosio/chain/static_account.hpp>
 
 #include <eosio/chain/native-contract/native_contracts.hpp>
 
@@ -64,7 +65,8 @@ using controller_index_set = index_set<
    code_index,
    database_header_multi_index,
    action_fee_object_index,
-   config_data_object_index
+   config_data_object_index,
+   static_account_object_index
 >;
 
 using contract_database_index_set = index_set<

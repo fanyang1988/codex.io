@@ -235,6 +235,7 @@ bool apply_context::has_recipient( account_name code )const {
 }
 
 void apply_context::require_recipient( account_name recipient ) {
+   EOS_ASSERT( !is_static, action_validate_exception, "current action is static, cannot use require_recipient" );
    if( !has_recipient(recipient) ) {
       _notified.emplace_back(
          recipient,
@@ -260,6 +261,8 @@ void apply_context::require_recipient( account_name recipient ) {
  *   can better understand the security risk.
  */
 void apply_context::execute_inline( action&& a ) {
+   EOS_ASSERT( !is_static, action_validate_exception, "current action is static, cannot use require_recipient" );
+
    auto* code = control.db().find<account_object, by_name>(a.account);
    EOS_ASSERT( code != nullptr, action_validate_exception,
                "inline action's code account ${account} does not exist", ("account", a.account) );
@@ -339,6 +342,8 @@ void apply_context::execute_inline( action&& a ) {
 }
 
 void apply_context::execute_context_free_inline( action&& a ) {
+   EOS_ASSERT( !is_static, action_validate_exception, "current action is static, cannot use require_recipient" );
+
    auto* code = control.db().find<account_object, by_name>(a.account);
    EOS_ASSERT( code != nullptr, action_validate_exception,
                "inline action's code account ${account} does not exist", ("account", a.account) );
